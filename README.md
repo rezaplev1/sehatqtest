@@ -1,4 +1,4 @@
-# TiketComtest
+# SehatQTest
 
 ## Requirements
 

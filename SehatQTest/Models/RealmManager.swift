@@ -13,11 +13,13 @@ class RealmManager: NSObject {
     let realm = try! Realm()
     static let shared = RealmManager()
     
-//    var heroModel: Results<HeroModel>?
+    var dataHomeModel: Results<DataHomeModel>?
+    var orderItem: Results<OrderItemModel>?
     
     // MARK: - READ/LOAD OBJECT
     func loadRealmObject() {
-//        heroModel = realm.objects(HeroModel.self)
+        dataHomeModel = realm.objects(DataHomeModel.self)
+        orderItem = realm.objects(OrderItemModel.self)
     }
     
     func retrieveAllDataForObject(_ T : Object.Type) -> [Object] {

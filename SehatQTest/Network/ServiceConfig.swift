@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-private let SERVICE_HERO_STATS = "/home"
+private let SERVICE_HOME = "/home"
 
 enum ServiceConfig {
     case getHome
@@ -25,7 +25,7 @@ extension ServiceConfig: URLRequestConvertible {
     var path: String {
         switch self {
         case .getHome:
-            return SERVICE_HERO_STATS
+            return SERVICE_HOME
         }
     }
     

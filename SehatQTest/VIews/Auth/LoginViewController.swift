@@ -15,7 +15,7 @@ class LoginViewController: UIViewController {
     var loginTitleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.textColor = .black
-        label.textAlignment = .justified
+        label.textAlignment = .center
         label.font = UIFont.boldSystemFont(ofSize: 24.0)
         label.numberOfLines = 0
         label.text = "Login"
@@ -33,12 +33,20 @@ class LoginViewController: UIViewController {
         let textField = PrimaryTextField()
         textField.placeholder = "Password"
         textField.keyboardType = .asciiCapable
+        textField.isSecureTextEntry = true
         return textField
     }()
     
-    var loginButton: PrimaryButton = {
-        let button = PrimaryButton()
-        button.setTitle("Next", for: .normal)
+    var loginButton: UIButton = {
+        let button = UIButton()
+        button.layer.borderColor = UIColor.lightGray.cgColor
+        button.layer.backgroundColor = UIColor.lightGray.cgColor
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 2
+        button.layer.masksToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .lightGray
+        button.setTitle("Sign in", for: .normal)
         button.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
         return button
     }()
@@ -46,21 +54,31 @@ class LoginViewController: UIViewController {
     
     var faceBookButton: FBLoginButton = {
         let button = FBLoginButton()
-//        button.setTitle("Next", for: .normal)
         button.addTarget(self, action: #selector(didTapFaceBook), for: .touchUpInside)
         return button
     }()
     
-    var googleButton: PrimaryButton = {
-        let button = PrimaryButton()
-        button.setTitle("Next", for: .normal)
+    var googleButton: UIButton = {
+        let button = UIButton()
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        button.layer.backgroundColor = UIColor.systemBlue.cgColor
+        button.layer.cornerRadius = 5
+        button.layer.borderWidth = 2
+        button.layer.masksToBounds = true
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Google Sign In", for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.addTarget(self, action: #selector(didTapGoogle), for: .touchUpInside)
         return button
     }()
+    
+    var vm = LoginViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         sutupView()
+        
+        vm.delegate = self
         // Do any additional setup after loading the view.
     }
     
@@ -84,7 +102,6 @@ class LoginViewController: UIViewController {
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.right.equalTo(-40)
             make.left.equalTo(40)
-            make.height.equalTo(47)
         }
         
         userNameTextField.snp.makeConstraints { make in
@@ -118,12 +135,13 @@ class LoginViewController: UIViewController {
             make.top.equalTo(faceBookButton.snp.bottom).offset(16)
             make.right.equalTo(-40)
             make.left.equalTo(40)
-            make.height.equalTo(44)
+            make.size.equalTo(faceBookButton)
         }
         
     }
     
     @objc func didTapLogin() {
+        vm.validateLogin(username: userNameTextField.text, password: passwordTextField.text)
     }
     
     @objc func didTapFaceBook() {
@@ -138,6 +156,10 @@ class LoginViewController: UIViewController {
     }
     
     @objc func didTapGoogle() {
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+        GIDSignIn.sharedInstance().delegate = self
+        GIDSignIn.sharedInstance().signOut()
+        GIDSignIn.sharedInstance().signIn()
     }
     
     // MARK: - Login With Facebook
@@ -148,10 +170,46 @@ class LoginViewController: UIViewController {
         case .cancelled:
             print("cancelled login")
         case .failed(let error):
-            simpleAlert(message: "Login Failed")
+            simpleAlert(message: "\(error)", title: "Login Failed")
         case .success(_, _, let token):
-            simpleAlert(message: "Login success")
-//            loginVM?.loginWithFacebookGoogle(token: token.tokenString)
+            vm.loginWithFacebookGoogle(token: token.tokenString)
         }
+    }
+}
+
+// MARK : - GIDSignInDelegate
+extension LoginViewController : GIDSignInDelegate {
+    
+    // MARK : - GIDSignInDelegate
+    
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+        if (error == nil) {
+            
+            if let token = user.authentication.idToken {
+                vm.loginWithFacebookGoogle(token: token)
+            }
+            
+        } else {
+            if (error.localizedDescription.contains("The user canceled the sign-in flow")) {
+                print("didSignInForUser user cancel")
+            } else {
+                // error login
+            }
+        }
+    }
+}
+
+
+// MARK: - LoginViewModelDelegate
+extension LoginViewController: LoginViewModelDelegate {
+    
+    func failed(message: String) {
+        simpleAlert(message: message)
+    }
+    
+    func success() {
+        UserDefaults.standard.setIsLogin(value: true)
+        let vc = MainViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

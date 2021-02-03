@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Initialize google sign-in
         GIDSignIn.sharedInstance().clientID = Constants.GOOGLE_CLIENT_ID
-        let navigation = UINavigationController(rootViewController: LoginViewController())
+        let navigation = UINavigationController(rootViewController: Helper.checkSessionController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigation
         window?.makeKeyAndVisible()

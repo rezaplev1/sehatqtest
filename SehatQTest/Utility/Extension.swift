@@ -7,6 +7,10 @@
 
 import UIKit
 
+enum UserDefaultsKeys : String {
+    case isLogin
+}
+
 extension Double {
     
     var clean: String {
@@ -21,6 +25,25 @@ extension Double {
 
 extension UIViewController {
     
+    func setNavTitle(withTitle: String, withBackButton: Bool = true) {
+        self.navigationItem.title = withTitle
+        self.navigationController?.navigationBar.isTranslucent = false
+        
+        let backImage = UIImage(named: "backLogo")
+        self.navigationController?.navigationBar.backIndicatorImage = backImage
+        self.navigationController?.navigationBar.tintColor = .black
+        
+        if withBackButton {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: backImage, style: .plain, target: self, action: #selector(backTapped))
+        } else {
+            self.navigationItem.leftBarButtonItem = nil
+        }
+    }
+    
+    @objc func backTapped(){
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     func simpleAlert(message: String, title: String = "") {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
@@ -30,15 +53,12 @@ extension UIViewController {
 }
 
 extension UserDefaults {
-    // check for is first launch - only true on first invocation after app install, false on all further invocations
-    // Note: Store this value in AppDelegate if you have multiple places where you are checking for this flag
-    static func isLogin() -> Bool {
-        let hasBeenLoginBeforeFlag = "hasBeenLoginBeforeFlag"
-        let isFirstLaunch = !UserDefaults.standard.bool(forKey: hasBeenLoginBeforeFlag)
-        if (isFirstLaunch) {
-            UserDefaults.standard.set(true, forKey: hasBeenLoginBeforeFlag)
-            UserDefaults.standard.synchronize()
-        }
-        return isFirstLaunch
+    
+    func setIsLogin(value: Bool){
+        set(value, forKey: UserDefaultsKeys.isLogin.rawValue)
+    }
+
+    func getIsLogin() -> Bool {
+        return value(forKey: UserDefaultsKeys.isLogin.rawValue) as? Bool ?? false
     }
 }

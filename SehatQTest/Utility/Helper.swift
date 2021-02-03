@@ -17,7 +17,7 @@ public class Helper {
     
     class func checkSessionController() -> UIViewController {
         
-        if (UserDefaults.isLogin()) {
+        if (UserDefaults.standard.getIsLogin()) {
             
             return MainViewController()
         }

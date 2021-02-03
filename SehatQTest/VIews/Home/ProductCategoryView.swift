@@ -14,7 +14,7 @@ protocol ProductCategoryViewDelegate : class {
 
 class ProductCategoryView: UIView {
     weak var delegate: ProductCategoryViewDelegate?
-        
+    
     private lazy var scrollView: UIScrollView = { [unowned self] in
         let sc = UIScrollView()
         sc.isScrollEnabled = true
@@ -79,8 +79,7 @@ class ProductCategoryView: UIView {
                 px = px + 100
                 count += 1
             }
-            py =  Int(scrollView.frame.width)
-            scrollView.contentSize = CGSize(width: py + 100, height: 110)
+            scrollView.contentSize = CGSize(width: px, height: 110)
         }
     }
     

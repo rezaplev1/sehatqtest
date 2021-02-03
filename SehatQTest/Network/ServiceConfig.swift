@@ -33,7 +33,7 @@ extension ServiceConfig: URLRequestConvertible {
         switch self {
         case .getHome:
             return .get
-  
+            
         }
     }
     

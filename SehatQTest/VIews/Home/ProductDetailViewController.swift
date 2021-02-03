@@ -120,7 +120,6 @@ class ProductDetailViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         mappingData()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

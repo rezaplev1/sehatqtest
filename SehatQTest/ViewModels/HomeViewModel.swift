@@ -10,7 +10,6 @@ import Foundation
 protocol HomeViewModelDelegate: class {
     func success()
     func failedReq(message: String)
-    
 }
 
 class HomeViewModel: BaseViewModel {

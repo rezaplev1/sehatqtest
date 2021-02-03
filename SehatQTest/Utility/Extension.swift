@@ -57,7 +57,7 @@ extension UserDefaults {
     func setIsLogin(value: Bool){
         set(value, forKey: UserDefaultsKeys.isLogin.rawValue)
     }
-
+    
     func getIsLogin() -> Bool {
         return value(forKey: UserDefaultsKeys.isLogin.rawValue) as? Bool ?? false
     }

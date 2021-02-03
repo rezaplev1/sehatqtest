@@ -23,10 +23,10 @@ class ProfileViewController: UIViewController {
     }()
     
     var vm = ProfileViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupView()
     }
     
@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         tableView.reloadData()
     }
-
+    
     private func setupView() {
         setNavTitle(withTitle: "Purchased History", withBackButton: false)
         view.addSubview(tableView)
@@ -43,7 +43,6 @@ class ProfileViewController: UIViewController {
             make.left.right.bottom.top.equalTo(view)
         }
     }
-
 }
 
 // MARK: UITableViewDataSource
@@ -87,8 +86,8 @@ extension ProfileViewController: UITableViewDelegate {
                 vc.hidesBottomBarWhenPushed = true
                 navigationController?.pushViewController(vc, animated: true)
             }
-         
+            
         }
     }
-
+    
 }

@@ -8,8 +8,8 @@
 import Foundation
 import RealmSwift
 
-
 typealias HomesModel = [HomeModel]
+
 // MARK: - HomeModel
 struct HomeModel: Codable {
     let data: DataHomeModel?
@@ -33,7 +33,7 @@ struct HomeModel: Codable {
         
         let listProductPromo = try container.decode([ProductPromo].self, forKey: .productPromo)
         productPromo.append(objectsIn: listProductPromo)
-
+        
         
         super.init()
     }
@@ -49,7 +49,7 @@ struct HomeModel: Codable {
     @objc dynamic var imageURL: String = ""
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
-
+    
     enum CodingKeys: String, CodingKey {
         case imageURL = "imageUrl"
         case id, name
@@ -78,7 +78,7 @@ struct HomeModel: Codable {
     @objc dynamic var productPromoDescription: String = ""
     @objc dynamic var price: String = ""
     @objc dynamic var loved: Int = 0
-
+    
     enum CodingKeys: String, CodingKey {
         case id
         case imageURL = "imageUrl"

@@ -74,5 +74,4 @@ class SearchCell: UITableViewCell {
         productImg.sd_setImage(with: imageUrl, placeholderImage: UIImage(), options: .highPriority, completed: nil)
         priceLbl.text = product.price
     }
-    
 }

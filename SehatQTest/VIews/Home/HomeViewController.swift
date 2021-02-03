@@ -70,15 +70,12 @@ class HomeViewController: UIViewController {
         setupView()
         vm.delegate = self
         vm.getHome()
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    
-    
     
     private func setupView() {
         
@@ -115,6 +112,7 @@ class HomeViewController: UIViewController {
     }
 }
 
+// MARK: HomeViewModelDelegate
 
 extension HomeViewController: HomeViewModelDelegate {
     

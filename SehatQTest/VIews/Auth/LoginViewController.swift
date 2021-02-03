@@ -73,7 +73,7 @@ class LoginViewController: UIViewController {
     }()
     
     var vm = LoginViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         sutupView()
@@ -198,7 +198,6 @@ extension LoginViewController : GIDSignInDelegate {
         }
     }
 }
-
 
 // MARK: - LoginViewModelDelegate
 extension LoginViewController: LoginViewModelDelegate {

@@ -19,17 +19,17 @@ open class PrimaryTextField: UITextField {
         self.borderStyle = .none
         self.layer.masksToBounds = false
         self.clearButtonMode = .whileEditing
-       
+        
     }
     
     override open func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
-
+    
     override open func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
-
+    
     override open func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.inset(by: padding)
     }
@@ -50,6 +50,6 @@ open class PrimaryTextField: UITextField {
         }
         return super.canPerformAction(action, withSender: sender)
     }
-
+    
 }
 

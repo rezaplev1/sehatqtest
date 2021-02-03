@@ -20,9 +20,9 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
         navigationItem.setHidesBackButton(true, animated: true)
-
+        
     }
-   
+    
     @objc func setupTabbar() {
         let homeVC = HomeViewController()
         let homeNav = UINavigationController(rootViewController: homeVC)
@@ -50,5 +50,5 @@ class MainViewController: UITabBarController, UITabBarControllerDelegate {
     
 }
 
-    
+
 

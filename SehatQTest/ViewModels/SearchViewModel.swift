@@ -11,10 +11,8 @@ class SearchViewModel: BaseViewModel {
     var textSearch = ""
     
     var productPromoList: [ProductPromo]? {
-        if let category = RealmManager.shared.dataHomeModel?.first {
-            
-            let filtered = Array(category.productPromo.filter({$0.title.contains(self.textSearch)}))
-            
+        if let dataHomeModel = RealmManager.shared.dataHomeModel?.first {
+            let filtered = Array(dataHomeModel.productPromo.filter({$0.title.lowercased().contains(self.textSearch.lowercased())}))
             return filtered
         }
         return nil

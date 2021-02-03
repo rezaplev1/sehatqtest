@@ -16,7 +16,6 @@ class OrderCell: UITableViewCell {
         return img
     }()
     
-    
     var titleLbl: UILabel = {
         let label: UILabel = UILabel()
         label.textColor = .black

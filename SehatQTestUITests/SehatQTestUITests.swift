@@ -21,6 +21,14 @@ class SehatQTestUITests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
+    
+    func testGoToDetailVc(){
+        //make sure your data already save to local
+        let app = XCUIApplication()
+        app.launch()
+        app/*@START_MENU_TOKEN@*/.tables/*[[".scrollViews.tables",".tables"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.cells.containing(.staticText, identifier:"Nitendo Switch").element.tap()
+        app.navigationBars["SehatQTest.ProductDetailView"].buttons["Back"].tap()
+    }
 
     func testExample() throws {
         // UI tests must launch the application that they test.
